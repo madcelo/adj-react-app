@@ -22,37 +22,51 @@ function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const StyledAppBar = styled(AppBar)({
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.secondary.main,
+    backgroundColor: theme.palette.whitesmoke,
+    color: theme.palette.golden,
+    boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)",
   });
 
   const StyledLink = styled(Link)({
     marginLeft: "20px",
     textDecoration: "none",
-    color: theme.palette.primary.main,
+    color: theme.palette.golden,
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: "2em",
+    "&:hover": {
+      color: theme.palette.palmeirasGreen,
+    },
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "2em",
+    },
   });
 
   const DrawerMenu = () => (
     <Box sx={{ width: 250 }}>
       <Box sx={{ padding: 2 }}>
-        <StyledLink onClick={() => setDrawerOpen(false)} to="/">
-          <HomeIcon /> Home
-        </StyledLink>
-        <StyledLink onClick={() => setDrawerOpen(false)} to="/about">
-          <InfoIcon /> About
-        </StyledLink>
-        <StyledLink onClick={() => setDrawerOpen(false)} to="/services">
-          <ServicesIcon /> Services
-        </StyledLink>
-        <StyledLink onClick={() => setDrawerOpen(false)} to="/team">
-          <TeamIcon /> Team
-        </StyledLink>
-        <StyledLink onClick={() => setDrawerOpen(false)} to="/contact">
-          <ContactIcon /> Contact
-        </StyledLink>
+        {["/", "/about", "/services", "/team", "/contact"].map(
+          (route, index) => {
+            const icons = [
+              <HomeIcon />,
+              <InfoIcon />,
+              <ServicesIcon />,
+              <TeamIcon />,
+              <ContactIcon />,
+            ];
+            const labels = ["Home", "About", "Services", "Team", "Contact"];
+            return (
+              <StyledLink
+                key={index}
+                onClick={() => setDrawerOpen(false)}
+                to={route}
+              >
+                {icons[index]} {labels[index]}
+              </StyledLink>
+            );
+          }
+        )}
       </Box>
     </Box>
   );
@@ -82,21 +96,23 @@ function Header() {
           </>
         ) : (
           <>
-            <StyledLink to="/">
-              <HomeIcon /> Home
-            </StyledLink>
-            <StyledLink to="/about">
-              <InfoIcon /> About
-            </StyledLink>
-            <StyledLink to="/services">
-              <ServicesIcon /> Services
-            </StyledLink>
-            <StyledLink to="/team">
-              <TeamIcon /> Team
-            </StyledLink>
-            <StyledLink to="/contact">
-              <ContactIcon /> Contact
-            </StyledLink>
+            {["/", "/about", "/services", "/team", "/contact"].map(
+              (route, index) => {
+                const icons = [
+                  <HomeIcon />,
+                  <InfoIcon />,
+                  <ServicesIcon />,
+                  <TeamIcon />,
+                  <ContactIcon />,
+                ];
+                const labels = ["Home", "About", "Services", "Team", "Contact"];
+                return (
+                  <StyledLink key={index} to={route}>
+                    {icons[index]} {labels[index]}
+                  </StyledLink>
+                );
+              }
+            )}
           </>
         )}
       </Toolbar>

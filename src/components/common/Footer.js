@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, IconButton } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from "@mui/material/styles";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -14,27 +14,52 @@ const Footer = () => {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "20px",
-    backgroundColor: theme.palette.primary.main,
-    color: "#fff",
+    padding: theme.spacing(3),
+    backgroundColor: theme.palette.evenDarkerGreen,
+    color: theme.palette.whitesmoke,
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      textAlign: "center",
+    },
   });
 
+  const StyledIconButton = styled(IconButton)(({ theme }) => ({
+    color: theme.palette.whitesmoke,
+    "&:hover": {
+      color: theme.palette.golden,
+      transition: "color 0.3s ease-in-out",
+    },
+  }));
+
   const SocialIcons = styled("div")({
+    display: "flex",
+    justifyContent: "center",
     "& > *": {
       marginRight: theme.spacing(2),
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(2),
     },
   });
 
   return (
-    <FooterContainer maxWidth="sm">
-      <Typography variant="body1" align="center" color="inherit">
+    <FooterContainer>
+      <Typography variant="body1" color="inherit">
         © 2023 Attorney's Firm. All rights reserved.
       </Typography>
       <SocialIcons>
-        <FacebookIcon />
-        <TwitterIcon />
-        <LinkedInIcon />
-        <InstagramIcon />
+        <StyledIconButton>
+          <FacebookIcon />
+        </StyledIconButton>
+        <StyledIconButton>
+          <TwitterIcon />
+        </StyledIconButton>
+        <StyledIconButton>
+          <LinkedInIcon />
+        </StyledIconButton>
+        <StyledIconButton>
+          <InstagramIcon />
+        </StyledIconButton>
       </SocialIcons>
     </FooterContainer>
   );
